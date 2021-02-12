@@ -1,0 +1,60 @@
+﻿@page
+@model UI.Pages.Product.EditModel
+
+
+<br />
+<h2 class="text-info">Edit Product</h2>
+<br />
+
+<div class="border container" style="padding:30px;">
+    <form method="post">
+        <input type="hidden" asp-for="Product.ProductId" />
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Product.ProdName">Name</label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Product.ProdName" class="form-control" />
+            </div>
+            <span asp-validation-for="Product.ProdName" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Product.ProdDescription">Description</label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Product.ProdDescription" class="form-control" />
+            </div>
+            <span asp-validation-for="Product.ProdDescription" class="text-danger"></span>
+        </div>
+        <div class="form-group row">            
+            <div class="col-3">
+                <label asp-for="Product.CategoryList">Category</label>
+            </div>
+            <div class="col-6">
+                @Html.DropDownList("Product.ProdCatId", Model.Product.CategoryList.Select(item => new SelectListItem
+                      {
+                          Value = item.ProdCatId.ToString(),
+                          Text = item.CategoryName.ToString()
+                      }), "Select Category", new { @class = "form-control custom-select", id = "ddlcategory" })
+
+            </div>
+            <span asp-validation-for="Product.ProdCatId" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-3 offset-3">
+                <input type="submit" value="Update" class="btn btn-primary form-control" />
+            </div>
+            <div class="col-3">
+                <a asp-page="Index" class="btn btn-success form-control">Back to List</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
